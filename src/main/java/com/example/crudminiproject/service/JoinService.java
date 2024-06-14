@@ -25,8 +25,8 @@ public class JoinService {
         Users data = new Users();
 
         data.setUsername(username);
-        data.setPassword(bCryptPasswordEncoder.encode(password));
-        data.setRole("ROLE_ADMIN");
+        data.setPassword(bCryptPasswordEncoder.encode(password)); // 비밀번호 암호화
+        data.setRole("ROLE_ADMIN"); // 모든 회원가입을 한 사람을 admin 권한을 부여.
 
         userRepository.save(data);
     }
