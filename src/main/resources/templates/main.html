@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Main Page</title>
+    <title>Main</title>
 </head>
 <body>
 <h1>Main Page</h1>
-<p>Welcome, <span th:text="${username}">User</span>!</p>
-<p>Your role is: <span th:text="${role}">ROLE_USER</span></p>
-<a href="/posts">Go to Posts</a>
+<a href="/posts">View Posts</a><br/>
+<a href="/posts/create">Create Post</a>
 </body>
 </html>

@@ -5,12 +5,12 @@
 </head>
 <body>
 <h1>Create Post</h1>
-<form th:action="@{/posts}" method="post">
-    <label>Title: <input type="text" th:field="*{title}"/></label><br/>
-    <label>Content: <textarea th:field="*{content}"></textarea></label><br/>
-    <label>Author: <input type="text" th:field="*{author}"/></label><br/>
+<form th:action="@{/posts/create}" method="post">
+    <label>Title: <input type="text" name="title"/></label><br/>
+    <label>Content: <textarea name="content"></textarea></label><br/>
+    <label>Author: <input type="text" name="author"/></label><br/>
     <button type="submit">Create</button>
 </form>
-<a href="/posts">Back to list</a>
+<a href="/posts">Back to List</a>
 </body>
 </html>

@@ -6,11 +6,11 @@
 <body>
 <h1>Edit Post</h1>
 <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="post">
-  <label>Title: <input type="text" th:field="*{title}" th:value="${post.title}"/></label><br/>
-  <label>Content: <textarea th:field="*{content}">[[${post.content}]]</textarea></label><br/>
-  <label>Author: <input type="text" th:field="*{author}" th:value="${post.author}"/></label><br/>
+  <label>Title: <input type="text" name="title" th:value="${post.title}"/></label><br/>
+  <label>Content: <textarea name="content" th:text="${post.content}"></textarea></label><br/>
+  <label>Author: <input type="text" name="author" th:value="${post.author}"/></label><br/>
   <button type="submit">Update</button>
 </form>
-<a href="/posts">Back to list</a>
+<a href="/posts">Back to List</a>
 </body>
 </html>
