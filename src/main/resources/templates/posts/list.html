@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Post List</title>
+</head>
+<body>
+<h1>Post List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Created Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.title}">Title</td>
+        <td th:text="${post.author}">Author</td>
+        <td th:text="${post.createdDate}">Created Date</td>
+        <td>
+            <a th:href="@{/posts/{id}(id=${post.id})}">View</a>
+            <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
+            <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/posts/new">Create new post</a>
+</body>
+</html>

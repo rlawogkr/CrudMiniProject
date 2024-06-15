@@ -52,7 +52,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter { // Usern
         GrantedAuthority auth = iterator.next();
 
         String role = auth.getAuthority();
-        String token = jwtUtil.createJwt(username, role, 60*60*10L);
+        // 토큰 생성 - 1일 동안 유효한 토큰
+        String token = jwtUtil.createJwt("username", "role", 86400000L);
+
 
         response.addHeader("Authorization", "Bearer " + token);
     }
