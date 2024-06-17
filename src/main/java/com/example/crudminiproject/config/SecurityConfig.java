@@ -55,7 +55,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join").permitAll() //로그인, 회원가입은 인증 없이 접근 가능
+                        .requestMatchers("/login", "/join").permitAll() //로그인, 회원가입은 인증 없이 접근 가능
                         .anyRequest().authenticated());
         //JWTFilter 등록
         http
