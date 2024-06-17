@@ -1,18 +1,24 @@
 package com.example.crudminiproject.controller;
 
-import com.example.crudminiproject.dto.JoinDTO;
+import com.example.crudminiproject.jwt.JWTUtil;
 import com.example.crudminiproject.service.JoinService;
+import com.example.crudminiproject.dto.JoinDTO;
+import com.example.crudminiproject.dto.JwtResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class JoinController {
     private final JoinService joinService;
+    private final AuthenticationManager authenticationManager;
+    private final JWTUtil jwtUtil;
 
     @GetMapping("/join")
     public String join(){
@@ -20,10 +26,9 @@ public class JoinController {
     }
     // 회원가입
     @PostMapping("/join")
-    public String joinProcess(JoinDTO joinDto, RedirectAttributes redirectAttributes){
-        joinService.joinProcess(joinDto);
-        redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다. 로그인해주세요.");
-        return "redirect:/login"; // 회원가입 후 로그인 페이지로 redirect
+    public String join(@ModelAttribute JoinDTO joinDTO){
+        joinService.joinProcess(joinDTO);
+        return "redirect:/login";
     }
 
 }

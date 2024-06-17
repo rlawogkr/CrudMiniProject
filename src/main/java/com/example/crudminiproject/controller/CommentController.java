@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
+    @PostMapping
     public String addComment(@RequestParam Long postId, @RequestParam Long userId, @RequestParam String content) {
         commentService.addComment(postId, userId, content);
         return "Comment added successfully";
