@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Posts</title>
 </head>
 <body>
 <h1>Posts</h1>
 <ul>
     <li th:each="post : ${posts}">
-        <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">Post Title</a>
+        <a th:href="@{'/posts/' + ${post.id}}"><span th:text="${post.title}"></span></a>
     </li>
 </ul>
-<a href="/">Back to Main</a>
+<a href="/posts/new">Create New Post</a>
 </body>
 </html>

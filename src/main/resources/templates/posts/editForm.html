@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <meta charset="UTF-8">
   <title>Edit Post</title>
 </head>
 <body>
 <h1>Edit Post</h1>
-<form th:action="@{/posts/{id}/edit(id=${post.id})}" method="post">
-  <label>Title: <input type="text" name="title" th:value="${post.title}"/></label><br/>
-  <label>Content: <textarea name="content" th:text="${post.content}"></textarea></label><br/>
-  <label>Author: <input type="text" name="author" th:value="${post.author}"/></label><br/>
-  <button type="submit">Update</button>
+<form id="editPostForm">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" th:value="${post.title}"><br>
+  <label for="content">Content:</label>
+  <textarea id="content" name="content" th:text="${post.content}"></textarea><br>
+  <button type="button" onclick="editPost()">Save</button>
 </form>
-<a href="/posts">Back to List</a>
+
+<script>
+  async function editPost() {
+    const title = document.getElementById('title').value;
+    const content = document.getElementById('content').value;
+    const token = localStorage.getItem('token');
+    const postId = document.getElementById('postId').value;;
+
+    const response = await fetch('/posts/' + postId + '/edit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ title, content })
+    });
+
+    if (response.ok) {
+      window.location.href = '/posts/' + postId;
+    } else {
+      alert('Failed to edit post');
+    }
+  }
+</script>
 </body>
 </html>

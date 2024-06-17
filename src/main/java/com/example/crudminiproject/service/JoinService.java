@@ -30,6 +30,4 @@ public class JoinService {
 
         userRepository.save(data);
     }
-
-
 }

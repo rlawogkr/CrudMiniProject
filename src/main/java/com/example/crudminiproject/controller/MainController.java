@@ -22,12 +22,6 @@ public class MainController {
 
         // 세션 현재 사용자 권한
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-//        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-//        GrantedAuthority auth = iter.next();
-//        String role = auth.getAuthority();
-//        return "Main Controller: " + username + ", Role: "+ role;
-
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         String role = authorities.stream().map(GrantedAuthority::getAuthority).findFirst().orElse("ROLE_USER");
 
@@ -36,8 +30,6 @@ public class MainController {
         model.addAttribute("role", role);
 
         return "main";
-
-
 
     }
 }
