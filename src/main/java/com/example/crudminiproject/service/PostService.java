@@ -1,39 +1,47 @@
 package com.example.crudminiproject.service;
 
+
+import com.example.crudminiproject.domain.Comment;
 import com.example.crudminiproject.domain.Post;
-import com.example.crudminiproject.domain.Users;
+import com.example.crudminiproject.domain.UserAccount;
+import com.example.crudminiproject.dto.PostRequest;
+import com.example.crudminiproject.repository.CommentRepository;
 import com.example.crudminiproject.repository.PostRepository;
-import com.example.crudminiproject.repository.UserRepository;
+import com.example.crudminiproject.repository.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
+
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
+    private final UserAccountRepository userAccountRepository;
 
-    // postRepository.findAll()을 호출하여 모든 게시글을 조회하고 반환한다.
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    public void addPost(PostRequest postRequest) {
+        Post post = new Post(postRequest.getTitle(), postRequest.getContent());
+        postRepository.save(post);
     }
 
-    // postRepository.findById(id)를 호출하여 id에 해당하는 게시글을 조회하고 반환한다.
+    public Page<Post> findAll(Pageable pageable) {
+        return postRepository.findAllByOrderByIdDesc(pageable);
+    }
+
     public Post findById(Long id) {
-        return postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + id));
+        return postRepository.findById(id).orElse(null);
     }
 
-    // postRepository.save(post)를 호출하여 게시글을 저장하고 반환한다.
-    public Post save(Post post, Long userId) {
-        Users user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + userId));
-        post.setUser(user);
-        return postRepository.save(post);
+    public void update(Long postId, PostRequest postRequest) {
+        Post post = new Post(postId, postRequest.getTitle(), postRequest.getContent());
+        postRepository.save(post);
     }
 
-    // postRepository.deleteById(id)를 호출하여 id에 해당하는 게시글을 삭제한다.
-    public void deleteById(Long id) {
-        postRepository.deleteById(id);
+    public void delete(Long postId) {
+        postRepository.deleteById(postId);
     }
+
 }

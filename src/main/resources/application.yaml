@@ -2,6 +2,7 @@ spring:
   thymeleaf:
     cache: false # ????? false? ?? ????? ???? ???.
 
+
   jwt:
     secret: hellomynameisjaehakkimfromseoulblablalblablablablablablablablalblalaslskfajsldfkjasldfj # ??? ?? key? ??? ?? ?? error? ???.
   application:
@@ -20,6 +21,11 @@ spring:
       hibernate:
       show_sql: true
       format_sql: true
+
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
 
 logging.level:
   org.hibernate.SQL: debug

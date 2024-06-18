@@ -1,0 +1,16 @@
+<nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3" th:fragment="header"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <a class="navbar-brand" href="/">게시판 서비스</a>
+    <ul class="nav nav-pills">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">회원관리</a>
+            <ul class="dropdown-menu" sec:authorize="!isAuthenticated()">
+                <li><a class="dropdown-item" href="/login">로그인</a></li>
+                <li><a class="dropdown-item" href="/join">회원가입</a></li>
+            </ul>
+            <ul class="dropdown-menu" sec:authorize="isAuthenticated()">
+                <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

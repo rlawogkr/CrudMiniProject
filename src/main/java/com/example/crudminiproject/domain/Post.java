@@ -1,33 +1,55 @@
 package com.example.crudminiproject.domain;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Setter
+@Getter
+@EqualsAndHashCode
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     private String content;
 
+    /*추가한 부분*/
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    @JoinColumn(name = "user_id")
+    private UserAccount userAccount;
 
+    // 추가한 부분
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
-    @Column(nullable = false)
-    private LocalDateTime createDate = LocalDateTime.now();
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 
-    @Column(nullable = false)
-    private LocalDateTime updateDate = LocalDateTime.now();
+    public Post() {
+    }
+
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public Post(Long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
 }
