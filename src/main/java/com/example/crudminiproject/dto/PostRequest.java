@@ -1,5 +1,6 @@
 package com.example.crudminiproject.dto;
 
+import com.example.crudminiproject.domain.UserAccount;
 import lombok.Getter;
 
 @Getter

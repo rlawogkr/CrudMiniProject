@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,15 +35,16 @@ public class Post {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", userAccount=" + (userAccount != null ? userAccount.getUserId() : "null") +
                 '}';
     }
 
     public Post() {
     }
-
-    public Post(String title, String content) {
+    public Post(String title, String content, UserAccount userAccount) {
         this.title = title;
         this.content = content;
+        this.userAccount = userAccount;
     }
 
     public Post(Long id, String title, String content) {

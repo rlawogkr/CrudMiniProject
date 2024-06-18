@@ -13,6 +13,8 @@
 <div class="container">
     <label for="title">제목</label>
     <input class="form-control" id="title" name="title" readonly required th:value="${post.title}" />
+    <label for="author">작성자</label>
+    <input class="form-control" id="author" name="author" readonly required th:value="${post.userAccount.userId}" />
     <br>
     <label for="content">내용</label>
     <textarea class="form-control" id="content" name="content" style="height: 300px; resize: none" readonly required th:text="${post.content}"></textarea>
