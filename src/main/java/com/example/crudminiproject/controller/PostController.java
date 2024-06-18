@@ -1,6 +1,7 @@
 package com.example.crudminiproject.controller;
 
 import com.example.crudminiproject.domain.Comment;
+import com.example.crudminiproject.domain.UserAccount;
 import com.example.crudminiproject.dto.CommentRequest;
 import com.example.crudminiproject.service.CommentService;
 import org.springframework.ui.Model;
@@ -53,8 +54,8 @@ public class PostController {
         /**
          * 댓글 기능 추가
          */
-//        List<Comment> comments = commentService.findByPostId(id);
-//        model.addAttribute("comments", comments);
+        List<Comment> comments = commentService.findByPostId(id);
+        model.addAttribute("comments", comments);
 
         return "postView";
     }
@@ -83,7 +84,8 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/comment")
-    public String addComment(@PathVariable Long id, CommentRequest commentRequest){
+    public String addComment(@PathVariable Long id, CommentRequest commentRequest, Principal principal) {
+        commentRequest.setUserAccount(new UserAccount(principal.getName()));
         commentService.addComment(id, commentRequest);
         return "redirect:/posts/" + id;
     }

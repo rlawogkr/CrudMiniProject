@@ -28,4 +28,8 @@ public class UserAccount {
 
     @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
+
+    public UserAccount(String userId){
+        this.userId = userId;
+    }
 }

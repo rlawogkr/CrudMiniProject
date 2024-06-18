@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,14 +15,37 @@
     <label for="author">작성자</label>
     <input class="form-control" id="author" name="author" readonly required th:value="${post.userAccount.userId}" />
     <br>
-    <label for="content">내용</label>
-    <textarea class="form-control" id="content" name="content" style="height: 300px; resize: none" readonly required th:text="${post.content}"></textarea>
+    <label for="post_content">내용</label>
+    <textarea class="form-control" id="post_content" name="content" style="height: 300px; resize: none" readonly required th:text="${post.content}"></textarea>
     <br>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button class="btn btn-danger position-relative" th:onclick="|location.href='@{/posts/{postId}/delete(postId=${post.id})}'|">글 삭제</button>
         <button class="btn btn-primary position-relative" th:onclick="|location.href='@{/posts/{postId}/update(postId=${post.id})}'|">글 수정</button>
     </div>
-
+    <br>
+    <div>
+        <h3>댓글 쓰기</h3>
+        <form th:action="@{/posts/{id}/comment(id=${post.id})}" method="post">
+            <div class="mb-3">
+                <textarea class="form-control" id="comment_content" name="content" rows="3" required></textarea>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary" type="submit">댓글 등록</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div>
+        <h3>댓글 목록</h3>
+        <div th:each="comment : ${comments}">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text" th:text="${comment.content}"></p>
+                    <footer class="blockquote-footer" th:text="${comment.userAccount.userId}"></footer>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
