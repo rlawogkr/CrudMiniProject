@@ -36,4 +36,8 @@ public class UserAccountService {
         }
         return null;
     }
+
+    public UserAccount findByUserId(String userId) {
+        return userAccountRepository.findByUserId(userId).orElse(null);
+    }
 }
