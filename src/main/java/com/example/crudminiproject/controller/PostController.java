@@ -3,7 +3,9 @@ package com.example.crudminiproject.controller;
 import com.example.crudminiproject.domain.Comment;
 import com.example.crudminiproject.domain.UserAccount;
 import com.example.crudminiproject.dto.CommentRequest;
+import com.example.crudminiproject.repository.UserAccountRepository;
 import com.example.crudminiproject.service.CommentService;
+import com.example.crudminiproject.service.UserAccountService;
 import org.springframework.ui.Model;
 import com.example.crudminiproject.domain.Post;
 import com.example.crudminiproject.dto.PostRequest;
@@ -25,6 +27,7 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
     private final CommentService commentService;
+    private final UserAccountRepository userAccountRepository;
 
     // http://localhost:8080/write
     @GetMapping("/write")
@@ -85,7 +88,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/comment")
     public String addComment(@PathVariable Long id, CommentRequest commentRequest, Principal principal) {
-        commentRequest.setUserAccount(new UserAccount(principal.getName()));
+        commentRequest.setUserAccount(userAccountRepository.findByUserId(principal.getName()).get());
         commentService.addComment(id, commentRequest);
         return "redirect:/posts/" + id;
     }
