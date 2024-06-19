@@ -22,12 +22,10 @@ public class Post {
     private String title;
     private String content;
 
-    /*추가한 부분*/
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserAccount userAccount;
 
-    // 추가한 부분
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
