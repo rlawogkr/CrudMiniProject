@@ -1,11 +1,9 @@
 package com.example.crudminiproject.controller;
 
 import com.example.crudminiproject.domain.Comment;
-import com.example.crudminiproject.domain.UserAccount;
 import com.example.crudminiproject.dto.CommentRequest;
 import com.example.crudminiproject.repository.UserAccountRepository;
 import com.example.crudminiproject.service.CommentService;
-import com.example.crudminiproject.service.UserAccountService;
 import org.springframework.ui.Model;
 import com.example.crudminiproject.domain.Post;
 import com.example.crudminiproject.dto.PostRequest;
@@ -29,7 +27,6 @@ public class PostController {
     private final CommentService commentService;
     private final UserAccountRepository userAccountRepository;
 
-    // http://localhost:8080/write
     @GetMapping("/write")
     public String write() {
         return "writeForm";
@@ -50,47 +47,47 @@ public class PostController {
         return "index";
     }
 
-    @GetMapping("/posts/{id}")
-    public String getPost(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id);
+    @GetMapping("/posts/{postId}")
+    public String getPost(@PathVariable Long postId, Model model) {
+        Post post = postService.findById(postId);
         model.addAttribute("post", post);
         /**
          * 댓글 기능 추가
          */
-        List<Comment> comments = commentService.findByPostId(id);
+        List<Comment> comments = commentService.findByPostId(postId);
         model.addAttribute("comments", comments);
 
         return "postView";
     }
 
-    @GetMapping("/posts/{id}/update")
-    public String getPostUpdate(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id);
+    @GetMapping("/posts/{postId}/update")
+    public String getPostUpdate(@PathVariable Long postId, Model model) {
+        Post post = postService.findById(postId);
         model.addAttribute("post", post);
 
         return "updateForm";
     }
 
-    @PostMapping("/posts/{id}/update")
-    public String postUpdate(@PathVariable Long id, PostRequest postRequest) {
-        postService.update(id, postRequest);
+    @PostMapping("/posts/{postId}/update")
+    public String postUpdate(@PathVariable Long postId, PostRequest postRequest) {
+        postService.update(postId, postRequest);
         // model.addAttribute("post", post);
 
-        return "redirect:/posts/" + id;
+        return "redirect:/posts/" + postId;
     }
 
-    @GetMapping("/posts/{id}/delete")
-    public String deletePost(@PathVariable Long id) {
-        postService.delete(id);
+    @GetMapping("/posts/{postId}/delete")
+    public String deletePost(@PathVariable Long postId) {
+        postService.delete(postId);
 
         return "redirect:/";
     }
 
-    @PostMapping("/posts/{id}/comment")
-    public String addComment(@PathVariable Long id, CommentRequest commentRequest, Principal principal) {
+    @PostMapping("/posts/{postId}/comment")
+    public String addComment(@PathVariable Long postId, CommentRequest commentRequest, Principal principal) {
         commentRequest.setUserAccount(userAccountRepository.findByUserId(principal.getName()).get());
-        commentService.addComment(id, commentRequest);
-        return "redirect:/posts/" + id;
+        commentService.addComment(postId, commentRequest);
+        return "redirect:/posts/" + postId;
     }
 
     private void paging(Model model, Pageable pageable, Page<Post> list) {

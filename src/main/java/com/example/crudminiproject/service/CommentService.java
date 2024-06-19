@@ -5,7 +5,6 @@ import com.example.crudminiproject.domain.Post;
 import com.example.crudminiproject.dto.CommentRequest;
 import com.example.crudminiproject.repository.CommentRepository;
 import com.example.crudminiproject.repository.PostRepository;
-import com.example.crudminiproject.repository.UserAccountRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +17,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
+    // postId에 해당하는 comment 목록 생성일 기준 내림차순 반환
     public List<Comment> findByPostId(Long postId){
         return commentRepository.findByPostIdOrderByCreatedDateDesc(postId);
     }

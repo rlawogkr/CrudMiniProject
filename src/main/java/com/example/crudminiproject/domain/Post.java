@@ -3,6 +3,7 @@ package com.example.crudminiproject.domain;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Post {
 
     @Id
@@ -39,8 +41,7 @@ public class Post {
                 '}';
     }
 
-    public Post() {
-    }
+
     public Post(String title, String content, UserAccount userAccount) {
         this.title = title;
         this.content = content;
